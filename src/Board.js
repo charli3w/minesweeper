@@ -71,7 +71,7 @@ class Board extends Component {
     }
 
     onTileClick = (e, dataitem) => {
-        if (dataitem.isRevealed || dataitem.isFlagged) {
+        if (dataitem.isRevealed || dataitem.isFlagged || this.state.isGameOver) {
             return;
         }
 
@@ -112,7 +112,7 @@ class Board extends Component {
     }
 
     onTileMouseDown = (e, dataitem) => {
-        if (e.button !== 1 || !dataitem.isRevealed) {
+        if (e.button !== 1 || !dataitem.isRevealed || this.state.isGameOver) {
             return;
         }
 
@@ -191,11 +191,7 @@ class Board extends Component {
                 }
 
                 if (!steppedOnMine && board[i][j].count === 0) {
-                    if (board[i][j].count === 0) {
-                        this.revealEmptyTiles(board, { x: i, y: j });
-                    } else {
-                        this.revealKnownTiles(board, { x: i, y: j })
-                    }
+                    this.revealEmptyTiles(board, { x: i, y: j });
                 }
             }
         }
@@ -245,10 +241,23 @@ class Board extends Component {
         }));
     }
 
+    resetBoard = () => {
+        this.setState({
+            board: generateBoard(this.props.settings.height, this.props.settings.width, this.props.settings.mines),
+            isGameOver: false,
+        });
+    }
+
     render() {
         return (
-            <div className="board">
-                {this.renderBoardTiles(this.state.board)}
+            <div className="board-container">
+                <div className="header">
+                    <div>Minesweeper!</div>
+                    <div><button onClick={this.resetBoard}>New Game</button></div>
+                </div>
+                <div className="board">
+                    {this.renderBoardTiles(this.state.board)}
+                </div>
             </div>
         )
     }

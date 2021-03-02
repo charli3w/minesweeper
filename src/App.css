@@ -1,6 +1,16 @@
+.board-container {
+  position: relative;
+  width: 400px;
+  margin: 400px auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
 .board {
   position: relative;
-  margin: 400px auto;
   height: 400px;
   width: 400px;
   border: 1px solid black;
