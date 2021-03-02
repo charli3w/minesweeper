@@ -15,7 +15,8 @@ class Tile extends Component {
         let className = "tile" + (this.props.isRevealed ? "" : " hidden") + (this.props.isMine ? " mine" : "")
             + (this.props.isExploded ? " exploded" : "");
         return (
-            <div className={className} onClick={this.props.onClick} onContextMenu={this.props.onContextMenu}>
+            <div className={className} onClick={this.props.onClick} onContextMenu={this.props.onContextMenu}
+                onMouseDown={this.props.onMouseDown}>
                 {this.props.isRevealed || this.props.isFlagged ? this.getValue() : ""}
             </div>
         )
